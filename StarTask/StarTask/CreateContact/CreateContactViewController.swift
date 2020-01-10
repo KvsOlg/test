@@ -89,7 +89,19 @@ class CreateContactViewController: UIViewController {
             guard let name = nameTextField.text else {return}
             guard let number = phoneNumberTextField.text else {return}
             guard let phoneType = selectTypePhoneTextField.text else {return}
-            personContact = Contact(name: name, surname: surnameTextField.text, phoneNumber: number, phoneType: phoneType)
+            
+            let uuid = UUID().uuidString
+            print("uuid 1 is \(uuid)")
+            
+            if personContact == nil {
+                personContact = Contact(name: name, surname: surnameTextField.text, phoneNumber: number, phoneType: phoneType, id: uuid)
+            } else {
+                personContact?.name = name
+                personContact?.surname = surnameTextField.text
+                personContact?.phoneNumber = number
+                personContact?.phoneType = phoneType
+            }
+            
             guard let contact = personContact else {return}
             delegateEdit?.editContactList(with: contact)
             delegateUpdate?.updateContactList(with: contact)

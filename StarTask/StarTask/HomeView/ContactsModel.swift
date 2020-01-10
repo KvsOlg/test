@@ -13,12 +13,14 @@ class Contact {
     var surname : String?
     var phoneNumber : String
     var phoneType : String
+    var id : String
     
     
-    init(name: String, surname : String?, phoneNumber : String, phoneType : String) {
+    init(name: String, surname : String?, phoneNumber : String, phoneType : String, id : String) {
         self.name = name
         self.surname = surname
         self.phoneNumber = phoneNumber
         self.phoneType = phoneType
+        self.id = id
     }
 }

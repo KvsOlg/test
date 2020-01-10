@@ -14,9 +14,6 @@ class ViewController: UIViewController {
     
     var contacts : [Contact] = []
     
-    var newContact : ContactDetailsViewController?
-
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -28,18 +25,13 @@ class ViewController: UIViewController {
         tableView.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateContact(_:)), name: NSNotification.Name(rawValue: "newContact"), object: nil)
-        
     }
     
     @objc func updateContact(_ notification: NSNotification) {
-        if let contact = notification.userInfo?["newCont"] as? Contact {
-            
-            self.contacts.append(contact)
+        if let _ = notification.userInfo?["newCont"] as? Contact {
             tableView.reloadData()
         }
     }
-    
- 
 
     @IBAction func addNewContact(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -49,9 +41,7 @@ class ViewController: UIViewController {
         createContactViewController.delegateUpdate = self
         self.present(createContactViewController, animated: true, completion: nil)
     }
-    
 }
-
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -77,6 +67,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.frame.height / 12
     }
+
 }
 
 extension ViewController: UpdateContactListDelegate {
